@@ -50,7 +50,7 @@ public class Pizza {
         if(isVeg && extraToppings) this.bill += "Extra Toppings Added: 70\n";
         else if(!isVeg && extraToppings) this.bill += "Extra Toppings Added: 120\n";
         if(takeAway) this.bill += "Paperbag Added: 20\n";
-        this.bill += "Total Price: " + this.price;
+        this.bill += "Total Price: " + this.price + "\n";
         return this.bill;
     }
 }
