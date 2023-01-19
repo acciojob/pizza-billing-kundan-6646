@@ -5,23 +5,18 @@ public class Pizza {
     private int price;
     private Boolean isVeg;
     private String bill;
-    private int cPrice;
-    private int tPrice;
+    private boolean extraCheese;
+    private boolean extraToppings;
     private boolean takeAway;
 
     public Pizza(Boolean isVeg){
         this.isVeg = isVeg;
         this.bill = "";
-        this.cPrice = 0;
-        this.tPrice = 0;
+        this.extraCheese = false;
+        this.extraToppings = false;
         this.takeAway = false;
-        if(isVeg) {
-            this.price += 300;
-            this.bill += "Base Price Of The Pizza: 300\n";
-        }else {
-            this.price += 400;
-            this.bill += "Base Price Of The Pizza: 400\n";
-        }
+        if(isVeg) this.price += 300;
+        else this.price += 400;
     }
 
     public int getPrice(){
@@ -29,29 +24,31 @@ public class Pizza {
     }
 
     public void addExtraCheese(){
+        if(extraCheese) return;
         this.price += 80;
-        this.cPrice += 80;
+        this.extraCheese = true;
     }
 
     public void addExtraToppings(){
-        if(this.isVeg) {
-            this.tPrice += 70;
-            this.price += 70;
-        }
-        else {
-            this.tPrice += 120;
-            this.price += 120;
-        }
+        if(extraToppings) return;
+        if(this.isVeg) this.price += 70;
+        else this.price += 120;
+        this.extraToppings = true;
     }
 
     public void addTakeaway(){
+        if(takeAway) return;
         this.price += 20;
         this.takeAway = true;
     }
 
     public String getBill(){
-        this.bill += "Extra Cheese Added: " + this.cPrice + "\n";
-        this.bill += "Extra Toppings Added: " + this.tPrice + "\n";
+        if(isVeg) this.bill += "Base Price Of The Pizza: 300\n";
+        else this.bill += "Base Price Of The Pizza: 400\n";
+
+        if(extraCheese) this.bill += "Extra Cheese Added: 80\n";
+        if(isVeg && extraToppings) this.bill += "Extra Toppings Added: 70\n";
+        else if(!isVeg && extraToppings) this.bill += "Extra Toppings Added: 120\n";
         if(takeAway) this.bill += "Paperbag Added: 20\n";
         this.bill += "Total Price: " + this.price;
         return this.bill;
